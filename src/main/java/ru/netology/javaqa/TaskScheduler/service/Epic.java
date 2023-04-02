@@ -1,8 +1,6 @@
 package ru.netology.javaqa.TaskScheduler.service;
 public class Epic extends Task {
-
     protected String[] subtasks;
-
     public Epic(int id, String[] subtasks) {
         super(id);
         this.subtasks = subtasks;
@@ -10,14 +8,10 @@ public class Epic extends Task {
 
     @Override
     public boolean matches(String query) {
-        String[] tmp = new String[subtasks.length];
-        for (int i = 0; i < subtasks.length; i++) {
-            tmp[i] = subtasks[i];
-        }
-        subtasks = tmp;
-
-        if (subtasks[2].contains(query)) {
-            return true;
+        for (String subtask : subtasks) {
+            if (subtask.contains(query))  {
+                return  true;
+            }
         }
         return false;
     }

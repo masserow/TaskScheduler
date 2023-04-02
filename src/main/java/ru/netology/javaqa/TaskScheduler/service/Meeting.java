@@ -1,7 +1,6 @@
 package ru.netology.javaqa.TaskScheduler.service;
 
 public class Meeting extends Task {
-
     protected String topic;
     protected String project;
     protected String start;

@@ -30,103 +30,82 @@ public class TodosTest {
         Assertions.assertArrayEquals(expected, actual);
     }
 
-
     @Test
-    public void testSearchSimpleTask() {
-        SimpleTask simpleTask = new SimpleTask(5, "Позвонить родителям");
-
-        Todos todos = new Todos();
-
-        todos.add(simpleTask);
-
-        Task[] expected = {simpleTask};
-        Task[] actual = todos.search("звонить" );
-
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void testSearchSimpleTaskNotFound() {
-        SimpleTask simpleTask = new SimpleTask(5, "Позвонить родителям");
-
-        Todos todos = new Todos();
-
-        todos.add(simpleTask);
-
-        Task[] expected = {};
-        Task[] actual = todos.search("писать" );
-
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void testSearchEpic() {
+    public void shouldSearchTwoTasks() {
+        SimpleTask simpleTask = new SimpleTask(5, "Установка приложения");
 
         String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
         Epic epic = new Epic(55, subtasks);
 
+        Meeting meeting = new Meeting(
+                555,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
+        );
+
         Todos todos = new Todos();
 
+        todos.add(simpleTask);
         todos.add(epic);
+        todos.add(meeting);
+
+        Task[] expected = {simpleTask, meeting};
+        Task[] actual = todos.search("приложения");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchOneTasks() {
+        SimpleTask simpleTask = new SimpleTask(5, "Установка приложения");
+
+        String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
+        Epic epic = new Epic(55, subtasks);
+
+        Meeting meeting = new Meeting(
+                555,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
+        );
+
+        Todos todos = new Todos();
+
+        todos.add(simpleTask);
+        todos.add(epic);
+        todos.add(meeting);
 
         Task[] expected = {epic};
-        Task[] actual = todos.search("Молоко");
+        Task[] actual = todos.search("Хлеб");
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void testSearchEpicNotFound() {
+    public void testSearchWhenNotTasks() {
+        SimpleTask simpleTask = new SimpleTask(5, "Установка приложения");
 
         String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
         Epic epic = new Epic(55, subtasks);
 
+        Meeting meeting = new Meeting(
+                555,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
+        );
 
         Todos todos = new Todos();
 
+        todos.add(simpleTask);
         todos.add(epic);
-
-        Task[] expected = {};
-        Task[] actual = todos.search("булка");
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void testSearchMeeting() {
-
-        Meeting meeting = new Meeting(
-                555,
-                "Выкатка 3й версии приложения",
-                "Приложение НетоБанка",
-                "Во вторник после обеда"
-        );
-
-        Todos todos = new Todos();
-
-        todos.add(meeting);
-
-        Task[] expected = {meeting};
-        Task[] actual = todos.search("Приложение");
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void testSearchMeetingNotFound() {
-
-        Meeting meeting = new Meeting(
-                555,
-                "Выкатка 3й версии приложения",
-                "Приложение НетоБанка",
-                "Во вторник после обеда"
-        );
-
-        Todos todos = new Todos();
-
         todos.add(meeting);
 
         Task[] expected = {};
-        Task[] actual = todos.search("ПРИЛОЖЕНИЕ");
+        Task[] actual = todos.search("Позвонить");
         Assertions.assertArrayEquals(expected, actual);
     }
+
+
 
 
 
